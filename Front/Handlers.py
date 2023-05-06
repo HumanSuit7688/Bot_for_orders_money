@@ -20,16 +20,28 @@ async def sign_customer(callback_query: types.CallbackQuery):
     id = callback_query.from_user.id
     user_name = callback_query.from_user.username
     user = User(id)
-    user.sign_up(user_name, 'Z')
-    await callback_query.answer('Авторизация прошла успешно!')
+    check = user.check_log()
+    if check == True:
+        print('уже занято')
+        await callback_query.answer('Уже есть такой акккаунт')
+    else:
+        print('все ок')
+        user.sign_up(user_name, 'Z')
+        await callback_query.answer('Авторизация прошла успешно!')
 
 
 async def sign_contractor(callback_query: types.CallbackQuery):
     id = callback_query.from_user.id
     user_name = callback_query.from_user.username
     user = User(id)
-    user.sign_up(user_name, 'P')
-    await callback_query.answer('Авторизация прошла успешно!')
+    check = user.check_log()
+    if check == True:
+        print('уже занято')
+        await callback_query.answer('Уже есть такой акккаунт')
+    else:
+        print('все ок')
+        user.sign_up(user_name, 'P')
+        await callback_query.answer('Авторизация прошла успешно!')
 
 
 def register_handlers(dp: Dispatcher):

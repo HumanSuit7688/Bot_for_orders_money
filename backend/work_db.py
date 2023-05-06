@@ -41,6 +41,18 @@ class User():
         cur.execute(f'INSERT INTO users (id, user_name, wallet, role) VALUES (%s, %s, %s, %s)', (self.id, user_name, 0.0, role))
         conn.commit()
 
+    def check_log(self):
+        conn = psycopg2.connect(self.db_url)
+        cur = conn.cursor()
+
+        cur.execute(f'SELECT * FROM users WHERE id = {self.id}')
+        check = cur.fetchall()
+        if check:
+            return True
+        else:
+            return False
+
+
 
 
 
