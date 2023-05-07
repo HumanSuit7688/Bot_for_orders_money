@@ -1,5 +1,5 @@
 import psycopg2
-
+db_url = 'postgresql://ivan:D8pJaZh_yzpDXS4kFK1u6Q@cross-mantis-7154.7tc.cockroachlabs.cloud:26257/SpecBot?sslmode=verify-full'
 
 class User():
 
@@ -52,8 +52,31 @@ class User():
         else:
             return False
 
+class Order():
+
+    def __init__(self, id):
+        self.id = id
+        self.db_url = 'postgresql://ivan:D8pJaZh_yzpDXS4kFK1u6Q@cross-mantis-7154.7tc.cockroachlabs.cloud:26257/SpecBot?sslmode=verify-full'
+
+    def insert_order_to_db(self, type, name, customer, work_amount):
+        conn = psycopg2.connect(self.db_url)
+        cur = conn.cursor()
+
+        cur.execute('INSERT INTO orders (id, type, name, customer, work_amount) VALUES (%s, %s, %s, %s, %s)', (self.id, type, name, customer, work_amount))
+        conn.commit()
+
+
+
+def new_id_order():
+    conn = psycopg2.connect(db_url)
+    cur = conn.cursor()
+
+    cur.execute('SELECT id FROM orders ORDER BY id desc;')
+    last_id = cur.fetchall()[0][0]
+    new_id = last_id + 1
+    return new_id
 
 
 
 
-user = User(2)
+new_id_order()

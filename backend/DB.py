@@ -11,19 +11,25 @@ cur = conn.cursor()
 #             'wallet REAL,'
 #             'role TEXT'
 #             ');')
-#
+# cur.execute('DROP TABLE orders;')
+
 # cur.execute('CREATE TABLE orders ('
 #             'id INTEGER PRIMARY KEY,'
 #             'type TEXT,'
 #             'name TEXT,'
+#             'customer INTEGER,'
 #             'work_amount INTEGER'
 #             ');')
 
 
-# cur.execute(f'INSERT INTO users (id, user_name, wallet, role) VALUES (%s, %s, %s, %s)', (1, name, 3.45, 'Z'))
+# cur.execute(f'INSERT INTO orders (id, type, name, customer, work_amount) VALUES (%s, %s, %s, %s, %s)', (0, 'views', 'тест', 123456789, 0))
 
 print('USERS')
 cur.execute('SELECT * FROM users')
+print(cur.fetchall())
+
+print('ORDERS')
+cur.execute('SELECT * FROM orders')
 print(cur.fetchall())
 
 conn.commit()
