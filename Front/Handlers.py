@@ -54,9 +54,8 @@ async def add_order(msg: types.Message):
 
 
 
-
 def register_handlers(dp: Dispatcher):
-
+    
     dp.register_message_handler(sign_up, commands='sign_up')
     dp.register_message_handler(start, commands= 'start')
     dp.register_callback_query_handler(sign_customer, lambda c: c.data == 'button_customer_sign')
